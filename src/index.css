@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+/* ========================================
+   Velvet & Stem — Global Design System
+   ======================================== */
+
+/* --- Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+/* --- CSS Variables --- */
+:root {
+  --color-bg: #0a0a0a;
+  --color-bg-elevated: #111111;
+  --color-gold: #c9a96e;
+  --color-gold-light: #d4b87a;
+  --color-gold-dark: #a88a50;
+  --color-text-primary: #f5f0eb;
+  --color-text-secondary: #8a8078;
+  --color-text-accent: #c9a96e;
+
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}
+
+/* Lenis smooth scroll body class */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* --- Typography --- */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Italic emphasis for luxury feel */
+em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* --- Selection --- */
+::selection {
+  background-color: rgba(201, 169, 110, 0.25);
+  color: var(--color-text-primary);
+}
+
+/* --- Scrollbar (minimal, luxury) --- */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 169, 110, 0.2);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 169, 110, 0.4);
+}
+
+/* --- Canvas rendering — GPU accelerated, crisp scaling --- */
+canvas {
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: contents;
+  transform: translateZ(0); /* Force GPU layer */
+}
+
+/* --- Phase label active state --- */
+.phase-active .phase-label {
+  opacity: 1;
+}
+
+/* --- Loading screen --- */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 1.2s ease, transform 1.2s ease;
+  filter: blur(0px);
+  transform: scale(1);
+}
+
+.loading-screen.loaded {
+  opacity: 0;
+  filter: blur(8px);
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+/* Loading progress bar */
+.loading-bar {
+  width: 120px;
+  height: 1px;
+  background: rgba(201, 169, 110, 0.15);
+  margin-top: 24px;
+  overflow: hidden;
+  border-radius: 1px;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  background: var(--color-gold);
+  transition: width 0.3s ease;
+  border-radius: 1px;
+}
+
+/* --- Floating particles (CSS-only for Phase 5) --- */
+@keyframes float-particle {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-60vh) translateX(20px) scale(0.5);
+    opacity: 0.5;
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  animation: float-particle linear infinite;
+  pointer-events: none;
+}
+
+/* --- Subtle golden shimmer --- */
+@keyframes shimmer {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.3; }
+}
+
+.golden-shimmer {
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .particle {
+    display: none;
+  }
+}
