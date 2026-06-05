@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# Velvet & Stem 🌸
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Velvet & Stem** is a luxury, scroll-driven cinematic web application that brings the experience of personalized flower gifting to life. Inspired by Apple's signature scrolling landing pages, this project creates a buttery-smooth, hardware-accelerated 60fps image sequence animation tightly bound to the user's scroll position.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
+- **Cinematic Scroll Sequences**: Scrub through hundreds of high-resolution frames as you scroll down the page, seamlessly transitioning between different "phases" of bouquet creation.
+- **GSAP ScrollTrigger Integration**: Precision-timed sticky text, fade-ins, and scroll markers layered gracefully on top of the fixed canvas sequence.
+- **Temporal Lerp Smoothing**: The custom animation engine adds calculated momentum, interpolating the current scroll position so that skipping frames (like when using a fast scroll wheel) still results in a beautifully smooth glide.
+- **Intelligent Preloading**: Frames are fetched asynchronously and buffered exactly where they are needed to prevent network saturation and visual stuttering.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🏗️ Architecture & Core Components
 
-## Expanding the ESLint configuration
+This application utilizes an advanced `<canvas>` rendering pipeline for maximum performance, separating the DOM overlay from the background imagery.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. `useImageSequence.ts` (The Animation Engine)
+This custom React hook is the beating heart of the cinematic sequence. It is responsible for:
+- **Parallel Priority Preloading**: Automatically fetching frames ahead of the user's current scroll position.
+- **Canvas Rendering**: Using hardware-accelerated `ctx.drawImage` to paint frames exactly 1:1, avoiding GPU layout thrashing by never resizing the canvas mid-sequence.
+- **The "Secret Sauce" Lerp**: Instead of jumping directly to the target frame that matches the scroll progress, the render loop (bound to `gsap.ticker`) moves the `displayFrame` slightly closer to the `targetFrame` on every tick. This creates physical momentum and hides low framerates.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 2. `PhaseScene.tsx` (The Scroll Wrapper)
+This component manages the physical scrollable area and the GSAP ScrollTrigger logic:
+- Creates a `fixed` canvas container that stays pinned to the viewport.
+- Uses a `relative` wrapper with a massive height (e.g., `500vh`) to force the user to scrub slowly.
+- Ties the section's scroll progress to the `useImageSequence` progress.
+- Controls the `opacity` and `visibility` of different canvas layers as the user enters and leaves different phases.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 3. `TransitionScene.tsx`
+A specialized bridge component that gracefully links the core storytelling phases. It handles the crossfades between different image sequences to ensure there are no hard visual cuts.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Technology Stack
+- **Framework**: [React 18](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Animation**: [GSAP](https://gsap.com/) & ScrollTrigger
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Rendering**: HTML5 `<canvas>` API
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🚀 Getting Started
+
+To run the project locally:
+
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+---
+
+*Crafted with precision. Designed to evoke emotion.*
