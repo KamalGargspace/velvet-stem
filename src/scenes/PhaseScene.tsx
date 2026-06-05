@@ -44,6 +44,7 @@ export function PhaseScene({
   useEffect(() => {
     if (!sectionRef.current) return;
 
+    const isFirstPhase = id === 'phase-1';
     const container = canvasContainerRef.current;
 
     const trigger = ScrollTrigger.create({
@@ -86,6 +87,10 @@ export function PhaseScene({
         }
       },
       onLeaveBack: () => {
+        // NEVER hide Phase 1 — it's the first section, there's nothing above it.
+        // Hiding it causes the black screen bug when scrolling back to top.
+        if (isFirstPhase) return;
+
         if (container) {
           gsap.to(container, {
             opacity: 0,
@@ -97,8 +102,11 @@ export function PhaseScene({
       },
       onRefresh: (self) => {
         if (!container) return;
-        // If we load the page already scrolled past this section
-        if (self.progress === 1 && persistCanvas) {
+        // Handle page load / hot-reload at various scroll positions
+        if (isFirstPhase && self.progress === 0) {
+          // Page loaded at top — Phase 1 must be visible
+          gsap.set(container, { opacity: 1, visibility: 'visible' });
+        } else if (self.progress === 1 && persistCanvas) {
           gsap.set(container, { opacity: 1, visibility: 'visible' });
         } else if (self.progress === 1 && !persistCanvas) {
           gsap.set(container, { opacity: 0, visibility: 'hidden' });

@@ -26,13 +26,14 @@ export function Phase5() {
       if (labelRef.current) {
         gsap.fromTo(
           labelRef.current,
-          { x: -16, opacity: 0 },
+          { x: -20, opacity: 0, filter: 'blur(6px)' },
           {
-            x: 0, opacity: 1, duration: 1.2, ease: 'power3.out',
+            x: 0, opacity: 1, filter: 'blur(0px)', ease: 'power2.out',
             scrollTrigger: {
               trigger: contentRef.current!,
-              start: 'top 70%',
-              toggleActions: 'play none none reverse',
+              start: 'top 90%',
+              end: 'top 50%',
+              scrub: 1.5,
             },
           }
         );
@@ -41,13 +42,14 @@ export function Phase5() {
       if (ctaRef.current) {
         gsap.fromTo(
           ctaRef.current,
-          { y: 20, opacity: 0 },
+          { y: 30, opacity: 0, filter: 'blur(4px)' },
           {
-            y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.4,
+            y: 0, opacity: 1, filter: 'blur(0px)', ease: 'power2.out',
             scrollTrigger: {
               trigger: contentRef.current!,
-              start: 'top 60%',
-              toggleActions: 'play none none reverse',
+              start: 'top 75%',
+              end: 'top 35%',
+              scrub: 2,
             },
           }
         );
@@ -82,8 +84,8 @@ export function Phase5() {
                     "The world's first fully personalized",
                     'flower gifting experience.',
                   ]}
-                  triggerStart="top 65%"
-                  triggerEnd="top 20%"
+                  triggerStart="top 90%"
+                  triggerEnd="top 40%"
                 />
 
                 <div

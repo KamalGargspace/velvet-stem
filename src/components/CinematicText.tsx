@@ -2,9 +2,11 @@
  * Cinematic text component — Apple Vision Pro-grade scroll reveal.
  * 
  * Animation design:
- * - Heading: splits into words, each word slides up with stagger + blur clear
- * - Subtext: fades in with a soft translucent → opaque transition
- * - All animations are scrub-linked so they respond physically to scroll velocity
+ * - All animations are SCRUB-LINKED to scroll position
+ * - Scroll slowly = text appears slowly. Scroll fast = text appears fast.
+ * - Heading: slides up with blur-clear over a long scroll distance
+ * - Subtext: fades in with stagger, also scrub-linked
+ * - This creates the premium, cinematic "breathing" feel of Apple landing pages
  */
 
 import { useEffect, useRef } from 'react';
@@ -33,8 +35,8 @@ export function CinematicText({
   subtext,
   className = '',
   id,
-  triggerStart = 'top 80%',
-  triggerEnd = 'top 30%',
+  triggerStart = 'top 95%',
+  triggerEnd = 'top 45%',
 }: CinematicTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -46,46 +48,50 @@ export function CinematicText({
       const subtextEls = containerRef.current!.querySelectorAll('.cinematic-subtext-line');
 
       if (headingEl) {
-        // Heading: rises up with a momentum blur-clear
+        // Heading: scrub-linked — scroll drives the animation progress
+        // The text slowly rises, de-blurs, and fades in as the user scrolls
         gsap.fromTo(
           headingEl,
           {
-            y: 40,
+            y: 60,
             opacity: 0,
-            filter: 'blur(8px)',
+            filter: 'blur(12px)',
           },
           {
             y: 0,
             opacity: 1,
             filter: 'blur(0px)',
-            duration: 1.4,
-            ease: 'power4.out',
+            ease: 'power2.out',
             scrollTrigger: {
               trigger: containerRef.current!,
               start: triggerStart,
               end: triggerEnd,
-              toggleActions: 'play none none reverse',
+              scrub: 1.5, // 1.5 seconds of smooth momentum lag
             },
           }
         );
       }
 
       if (subtextEls.length > 0) {
+        // Subtext lines: each line fades in with a slight stagger, also scrub-linked
         gsap.fromTo(
           subtextEls,
-          { y: 20, opacity: 0, filter: 'blur(4px)' },
+          {
+            y: 30,
+            opacity: 0,
+            filter: 'blur(6px)',
+          },
           {
             y: 0,
-            opacity: 0.8,
+            opacity: 0.85,
             filter: 'blur(0px)',
-            duration: 1,
-            ease: 'power3.out',
-            stagger: 0.1,
+            ease: 'power2.out',
+            stagger: 0.08,
             scrollTrigger: {
               trigger: containerRef.current!,
-              start: 'top 70%',
-              end: 'top 25%',
-              toggleActions: 'play none none reverse',
+              start: 'top 85%',
+              end: 'top 40%',
+              scrub: 1.8,
             },
           }
         );
