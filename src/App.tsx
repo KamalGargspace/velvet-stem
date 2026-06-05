@@ -102,14 +102,15 @@ export default function App() {
         {/* Phase 4 — Bouquet */}
         <Phase4 />
 
-        {/* Transition 4→5 */}
+        {/* Transition 4→5 (persistCanvas keeps bouquet as bg for Phase 5 & HowItWorks) */}
         <TransitionScene
           sequence={FRAME_SEQUENCES.transition4}
           id="transition-4-5"
+          persistCanvas={true}
         />
 
-        {/* Phase 5 — Arrival (persistCanvas keeps bouquet as bg for HowItWorks) */}
-        <Phase5 persistCanvas={true} />
+        {/* Phase 5 — Arrival */}
+        <Phase5 />
 
         {/* How It Works / Footer */}
         <HowItWorks />

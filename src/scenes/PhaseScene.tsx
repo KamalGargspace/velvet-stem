@@ -95,6 +95,17 @@ export function PhaseScene({
           });
         }
       },
+      onRefresh: (self) => {
+        if (!container) return;
+        // If we load the page already scrolled past this section
+        if (self.progress === 1 && persistCanvas) {
+          gsap.set(container, { opacity: 1, visibility: 'visible' });
+        } else if (self.progress === 1 && !persistCanvas) {
+          gsap.set(container, { opacity: 0, visibility: 'hidden' });
+        } else if (self.progress > 0 && self.progress < 1) {
+          gsap.set(container, { opacity: 1, visibility: 'visible' });
+        }
+      }
     });
 
     return () => trigger.kill();

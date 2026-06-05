@@ -9,9 +9,10 @@ import type { FrameSequence } from '../utils/frameConfig';
 interface TransitionSceneProps {
   sequence: FrameSequence;
   id: string;
+  persistCanvas?: boolean;
 }
 
-export function TransitionScene({ sequence, id }: TransitionSceneProps) {
+export function TransitionScene({ sequence, id, persistCanvas = false }: TransitionSceneProps) {
   // For single-frame transitions, render a simple crossfade image
   if (sequence.frameCount <= 1) {
     return (
@@ -36,6 +37,7 @@ export function TransitionScene({ sequence, id }: TransitionSceneProps) {
       sequence={sequence}
       id={id}
       isTransition
+      persistCanvas={persistCanvas}
     />
   );
 }
