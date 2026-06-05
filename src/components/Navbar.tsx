@@ -74,7 +74,8 @@ export function Navbar() {
         <div className="relative hidden sm:block group">
           <a
             href="#start-creating"
-            className="relative flex items-center justify-center px-8 py-3 bg-[#c9a96e] rounded-full text-[#0a0a0a] text-[10px] tracking-[0.2em] font-semibold uppercase transition-all duration-500 hover:bg-white shadow-[0_0_20px_rgba(201,169,110,0.15)] group-hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]"
+            className="relative flex items-center justify-center px-8 py- bg-[#c9a96e] rounded-full text-[#0a0a0a] text-[10px] tracking-[0.2em] font-semibold uppercase transition-all duration-500 hover:bg-white shadow-[0_0_20px_rgba(201,169,110,0.15)] group-hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]"
+            style={{ padding: '5px 15px' }}
             id="nav-cta"
           >
             <span className="relative z-10">Start Creating</span>

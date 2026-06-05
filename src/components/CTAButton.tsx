@@ -24,7 +24,8 @@ export function CTAButton({
     return (
       <a
         href={href}
-        className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#c9a96e] text-[#0a0a0a] text-[13px] font-medium tracking-[0.15em] uppercase hover:bg-[#d4b87a] transition-all duration-300 shadow-[0_0_30px_rgba(201,169,110,0.2)] hover:shadow-[0_0_50px_rgba(201,169,110,0.35)] ${className}`}
+        className={`inline-flex items-center justify-center gap-2 rounded-full bg-[#c9a96e] text-[#0a0a0a] text-[13px] font-medium tracking-[0.15em] uppercase hover:bg-[#d4b87a] transition-all duration-300 shadow-[0_0_30px_rgba(201,169,110,0.2)] hover:shadow-[0_0_50px_rgba(201,169,110,0.35)] ${className}`}
+        style={{ padding: '5px 15px' }}
         id={id}
       >
         {label}
