@@ -1,6 +1,9 @@
 /**
  * Frame sequence configuration for all cinematic phases and transitions.
- * Each sequence maps to a folder in /public/frames/ containing numbered PNG frames.
+ * Each sequence maps to a folder in /public/frames/ containing numbered WebP frames.
+ * 
+ * WebP format chosen for ~70-80% smaller file sizes vs PNG — critical for
+ * smooth streaming on production (Vercel) where frames load over the network.
  */
 
 export interface FrameSequence {
@@ -25,7 +28,7 @@ export const FRAME_SEQUENCES: Record<string, FrameSequence> = {
     label: 'The Beginning',
     folder: '/frames/phase1',
     frameCount: 105,
-    filePattern: (i) => `ezgif-frame-${padFrame(i)}.png`,
+    filePattern: (i) => `ezgif-frame-${padFrame(i)}.webp`,
     scrollHeight: '600vh',
     hasWatermark: true,
   },
@@ -34,7 +37,7 @@ export const FRAME_SEQUENCES: Record<string, FrameSequence> = {
     label: 'Transition 1→2',
     folder: '/frames/transition1(1-2)',
     frameCount: 80,
-    filePattern: (i) => `ezgif-frame-${padFrame(i)}.png`,
+    filePattern: (i) => `ezgif-frame-${padFrame(i)}.webp`,
     scrollHeight: '500vh',
     hasWatermark: true,
   },
@@ -43,7 +46,7 @@ export const FRAME_SEQUENCES: Record<string, FrameSequence> = {
     label: 'Gathering',
     folder: '/frames/phase2',
     frameCount: 80,
-    filePattern: (i) => `ezgif-frame-${padFrame(i)}.png`,
+    filePattern: (i) => `ezgif-frame-${padFrame(i)}.webp`,
     scrollHeight: '500vh',
     hasWatermark: true,
   },
@@ -52,7 +55,7 @@ export const FRAME_SEQUENCES: Record<string, FrameSequence> = {
     label: 'Transition 2→3',
     folder: '/frames/transition2(2-3)',
     frameCount: 72,
-    filePattern: (i) => `ezgif-frame-${padFrame(i)}.png`,
+    filePattern: (i) => `ezgif-frame-${padFrame(i)}.webp`,
     scrollHeight: '450vh',
     hasWatermark: true,
   },
@@ -61,7 +64,7 @@ export const FRAME_SEQUENCES: Record<string, FrameSequence> = {
     label: 'Discovery',
     folder: '/frames/phase3',
     frameCount: 32,
-    filePattern: (i) => `ezgif-frame-${padFrame(i)}.png`,
+    filePattern: (i) => `ezgif-frame-${padFrame(i)}.webp`,
     scrollHeight: '250vh',
     hasWatermark: true,
   },
@@ -70,7 +73,7 @@ export const FRAME_SEQUENCES: Record<string, FrameSequence> = {
     label: 'Transition 3→4',
     folder: '/frames/transition3(3-4)',
     frameCount: 75,
-    filePattern: (i) => `ezgif-frame-${padFrame(i)}.png`,
+    filePattern: (i) => `ezgif-frame-${padFrame(i)}.webp`,
     scrollHeight: '500vh',
     hasWatermark: true,
   },
@@ -79,7 +82,7 @@ export const FRAME_SEQUENCES: Record<string, FrameSequence> = {
     label: 'Bouquet',
     folder: '/frames/phase4',
     frameCount: 36,
-    filePattern: (i) => `ezgif-frame-${padFrame(i)}.png`,
+    filePattern: (i) => `ezgif-frame-${padFrame(i)}.webp`,
     scrollHeight: '250vh',
     hasWatermark: true,
   },
@@ -88,7 +91,7 @@ export const FRAME_SEQUENCES: Record<string, FrameSequence> = {
     label: 'Transition 4→5',
     folder: '/frames/transition4(4-5)',
     frameCount: 80,
-    filePattern: (i) => `ezgif-frame-${padFrame(i)}.png`,
+    filePattern: (i) => `ezgif-frame-${padFrame(i)}.webp`,
     scrollHeight: '500vh',
     hasWatermark: true,
   },
@@ -97,7 +100,7 @@ export const FRAME_SEQUENCES: Record<string, FrameSequence> = {
     label: 'Arrival',
     folder: '/frames/phase5',
     frameCount: 1,
-    filePattern: () => 'phase5.jpeg',
+    filePattern: () => 'phase5.webp',
     scrollHeight: '200vh',
     hasWatermark: false,
   },
